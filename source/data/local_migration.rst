@@ -13,26 +13,30 @@ Migrating Data Between Local Systems
 General Guidelines
 ==================
 
-    1. **Remove unneeded data!**
-    The most efficient way to move a directory is to minimize the data you
-    move. Delete temporary data you have been meaning to get around to purging.
-    Tar and zip small files that you probably won’t need for a while. Archive
-    old files and subdirectories to the HSMS and delete them from scratch file
+    1. Size the dataset and prune unneeded data.
+    Use tools such as `du`, `tree`, `dust` on the directories to understand
+    the data volumes.  Ensure there are no duplicate data sets, temporary
+    working files, or other unneeded content.  **The most efficient way to 
+    move data is to reduce the data to move.**  Use `tar` or `zip` archiving
+    tools to collapse directories into a single file.  As appropriate, archive
+    directories to the site-specific HSMS and delete from scratch file
     systems.
 
-    2. With limited insight into the data structure of individual
+   2. Start early and leave plenty of time for migration.
+    Be aware that everyone on the filesystems will be moving data.  Even with 
+    data sizes in hand, with limited insight into the data structure of individual
     directories, it is hard to predict exactly how long a transfer might take.
     **Be sure to plan far ahead and leave yourself plenty of time to complete a
     migration!** Note that transferring many small files is often worse than a
     few large files because performance is more strongly related to the time it
     takes to access a file, not transfer it.
 
-    3. Perform transfers from a
-    compute node in a batch job as explained below. **Do not use the
+    3. Perform transfers in the appropriate site-specific queue or partition in
+    a batch job as outlined below. 
+
+.. note:: **For Jet HPCS, do not use the
     front-ends.** The I/O on front-end nodes is slower than on a compute nodes
-    because they are shared with other users. (Yes, there is a run-time
-    limitation for a compute job, but that can be addressed by splitting the
-    transfer into smaller chunks and the approaches below).
+    because they are shared with other users.
 
     4. Use a
     synchronization tool (NOT just “cp” or “mv”) and **don’t rely on a one-time
